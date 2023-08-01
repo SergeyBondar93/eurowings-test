@@ -9,6 +9,14 @@ export default defineConfig({
   resolve: {
     alias: {
       "@assets": path.resolve("src", "assets"),
+      "@styles": path.resolve("src", "styles"),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@import "src/styles/variables.scss";`,
+      },
     },
   },
   server: {

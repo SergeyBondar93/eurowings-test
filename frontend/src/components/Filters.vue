@@ -48,57 +48,94 @@ const changeDestination = (newDestination: string) => {
 
 <template>
   <div class="filter-wrapper">
-    <Select
-      label="Departure airport"
-      name="departure"
-      :options="originsOptions"
-      title="National airports (A-Z)"
-      :selected="origin"
-      @update:modelValue="changeOrigin"
-    >
-      <template v-slot:input-prefix>
-        <PlaneTakeoffIcon />
-      </template>
+    <div class="origin-selector">
+      <Select
+        label="Departure airport"
+        name="departure"
+        :options="originsOptions"
+        title="National airports (A-Z)"
+        :selected="origin"
+        @update:modelValue="changeOrigin"
+      >
+        <template v-slot:input-prefix>
+          <PlaneTakeoffIcon />
+        </template>
 
-      <template v-slot:option-prefix>
-        <span class="option-prefix">
-          <PlaneIcon />
-        </span>
-      </template>
-    </Select>
+        <template v-slot:option-prefix>
+          <span class="option-prefix">
+            <PlaneIcon />
+          </span>
+        </template>
+      </Select>
+    </div>
+    <div class="destination-selector">
+      <Select
+        label="Destination airport"
+        name="destination"
+        :options="destinationsOptions"
+        title="National airports (A-Z)"
+        :selected="destination"
+        @update:modelValue="changeDestination"
+      >
+        <template v-slot:input-prefix>
+          <PlaneLandIcon />
+        </template>
 
-    <Select
-      label="Destination airport"
-      name="destination"
-      :options="destinationsOptions"
-      title="National airports (A-Z)"
-      :selected="destination"
-      @update:modelValue="changeDestination"
-    >
-      <template v-slot:input-prefix>
-        <PlaneLandIcon />
-      </template>
+        <template v-slot:option-prefix>
+          <span class="option-prefix">
+            <PlaneIcon />
+          </span>
+        </template>
+      </Select>
+    </div>
 
-      <template v-slot:option-prefix>
-        <span class="option-prefix">
-          <PlaneIcon />
-        </span>
-      </template>
-    </Select>
-
-    <Button>Lol kek</Button>
+    <div class="search-button">
+      <Button>Lol kek</Button>
+    </div>
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.origin-selector {
+  grid-area: origin;
+}
+.destination-selector {
+  grid-area: destination;
+}
+.search-button {
+  grid-area: search;
+}
 .filter-wrapper {
   width: 100%;
   padding: 24px;
   display: grid;
-  grid-template-columns: 2fr 2fr 1fr;
-  grid-template-rows: 1fr;
-  column-gap: 16px;
-  grid-template-areas: ". . .";
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr;
+  row-gap: 16px;
+  grid-template-areas:
+    "origin"
+    "destination"
+    "search";
+}
+
+@media (min-width: $mobile-breakpoint) {
+  .filter-wrapper {
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    row-gap: 16px;
+    column-gap: 16px;
+    grid-template-areas:
+      "origin destination"
+      "search search";
+  }
+}
+
+@media (min-width: $tablet-breakpoint) {
+  .filter-wrapper {
+    grid-template-columns: 2fr 2fr 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "origin destination search";
+  }
 }
 
 .option-prefix {

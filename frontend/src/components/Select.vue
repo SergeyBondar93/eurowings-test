@@ -209,7 +209,7 @@ function selectOption(newValue: string | null) {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .select-wrapper {
   position: relative;
 }
@@ -218,8 +218,8 @@ function selectOption(newValue: string | null) {
   width: 100%;
   display: flex;
   align-items: center;
-  border: 1px solid var(--select-border-color);
-  border-radius: var(--border-radius-main);
+  border: 1px solid $select-border-color;
+  border-radius: $border-radius-main;
   height: 55px;
   padding: 0px 56px 0px 8px;
   cursor: pointer;
@@ -229,7 +229,7 @@ function selectOption(newValue: string | null) {
 }
 
 .select-button:focus {
-  outline: 2px solid var(--select-border-color) !important;
+  outline: 2px solid $select-border-color;
 }
 
 .select-content-wrapper:active {
@@ -252,7 +252,7 @@ function selectOption(newValue: string | null) {
   letter-spacing: -0.4px;
   padding: 6px 15px;
   display: block;
-  background: var(--background-color-thirdly);
+  background: $background-color-thirdly;
 }
 
 .list-item {
@@ -264,7 +264,7 @@ function selectOption(newValue: string | null) {
   border-left: 2px solid transparent;
 }
 .list-item.selected-item {
-  border: 2px solid var(--brand-color);
+  border: 2px solid $brand-color;
 }
 
 .option-text-wrapper {
@@ -274,16 +274,16 @@ function selectOption(newValue: string | null) {
 }
 
 .option-label {
-  font-size: var(--font-size-primary);
+  font-size: $font-size-primary;
 }
 .option-sublabel {
-  font-size: var(--font-size-secondary);
-  color: var(--font-color-secondary);
+  font-size: $font-size-secondary;
+  color: $font-color-secondary;
 }
 
 .list-item:hover {
-  background-color: var(--background-color-secondary);
-  border-left: 2px solid var(--brand-color);
+  background-color: $background-color-secondary;
+  border-left: 2px solid $brand-color;
 }
 
 .prefix-wrapper {
@@ -316,17 +316,17 @@ function selectOption(newValue: string | null) {
   margin-left: 8px;
 }
 .value {
-  color: var(--font-color-primary);
+  color: $font-color-primary;
   display: block;
-  font-size: var(--font-size-primary);
+  font-size: $font-size-primary;
 }
 .label {
-  color: var(--font-color-secondary);
-  font-size: var(--font-size-primary);
+  color: $font-color-secondary;
+  font-size: $font-size-primary;
   display: block;
 }
 .filled {
-  font-size: var(--font-size-secondary);
+  font-size: $font-size-secondary;
 }
 
 .select-content-wrapper {
@@ -335,7 +335,7 @@ function selectOption(newValue: string | null) {
   left: -15px;
   height: 400px;
   top: -16px;
-  background: var(--background-color-primary);
+  background: $background-color-primary;
   border-radius: 8px;
   z-index: 2;
   display: flex;
@@ -344,7 +344,7 @@ function selectOption(newValue: string | null) {
 
 .input-wrapper {
   width: calc(100%);
-  border-bottom: 1px solid var(--select-border-color);
+  border-bottom: 1px solid $select-border-color;
   height: calc(56px + 30px);
   padding: 15px;
   flex-shrink: 0;

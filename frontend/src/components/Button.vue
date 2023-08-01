@@ -4,17 +4,18 @@
   <button class="button"><slot></slot></button>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .button {
+  height: 100%;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--font-color-opposite);
-  font-size: var(--font-size-primary);
+  color: $font-color-opposite;
+  font-size: $font-size-primary;
   font-weight: 700;
-  background: var(--brand-color);
-  border-radius: var(--border-radius-main);
+  background: $brand-color;
+  border-radius: $border-radius-main;
   border: none;
   outline: none;
   cursor: pointer;

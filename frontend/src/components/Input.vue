@@ -71,7 +71,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .custom-input {
   position: relative;
   display: inline-block;
@@ -92,7 +92,7 @@ onMounted(() => {
 .label {
   visibility: hidden;
   position: absolute;
-  left: 55px;
+  left: 56px;
   top: 11px;
   font-size: 13px;
 }
@@ -118,14 +118,14 @@ onMounted(() => {
 .input-field {
   position: relative;
   z-index: 1;
-  border: 1px solid var(--select-border-color);
+  border: 1px solid $select-border-color;
   width: 100%;
   height: 100%;
   border-radius: 8px;
   padding: 0px 55px 0px 55px;
   outline: none;
   background: transparent;
-  font-size: var(--font-size-primary);
+  font-size: $font-size-primary;
 }
 
 .input-field.filled {
@@ -133,6 +133,6 @@ onMounted(() => {
 }
 
 .input-field:focus {
-  border: 1px solid var(--brand-color);
+  border: 1px solid $brand-color;
 }
 </style>
