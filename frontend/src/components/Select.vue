@@ -128,29 +128,32 @@ function selectOption(newValue: string | null) {
 <template>
   <Backdrop :isShow="isOpen" @update:isShow="isOpen = $event" />
 
-  <button
-    class="select-button"
-    @click="changeIsOpen"
-    @focus="onFocus"
-    @blur="onBlur"
-    :tabindex="isOpen ? undefined : 0"
-  >
-    <span class="prefix-icon-wrapper">
-      <slot name="input-prefix"></slot>
-    </span>
+  <div class="select-wrapper">
+    <button
+      class="select-button"
+      @click="changeIsOpen"
+      @focus="onFocus"
+      @blur="onBlur"
+      :tabindex="isOpen ? undefined : 0"
+    >
+      <span class="prefix-icon-wrapper">
+        <slot name="input-prefix"></slot>
+      </span>
 
-    <div class="text-wrapper">
-      <span :class="['label', { filled: !!selectedOption }]">{{ label }}</span>
-      <span class="value">{{ selectedOption?.label }}</span>
-    </div>
+      <div class="text-wrapper">
+        <span :class="['label', { filled: !!selectedOption }]">{{
+          label
+        }}</span>
+        <span class="value">{{ selectedOption?.label }}</span>
+      </div>
 
-    <button class="clear-icon-wrapper" @click="clearValue" tabindex="0">
-      <RemoveIcon />
+      <button class="clear-icon-wrapper" @click="clearValue" tabindex="0">
+        <RemoveIcon />
+      </button>
     </button>
-
     <div
       v-if="isOpen"
-      class="select-wrapper"
+      class="select-content-wrapper"
       :aria-expanded="isOpen"
       :aria-haspopup="true"
     >
@@ -203,10 +206,14 @@ function selectOption(newValue: string | null) {
         </ul>
       </div>
     </div>
-  </button>
+  </div>
 </template>
 
 <style scoped>
+.select-wrapper {
+  position: relative;
+}
+
 .select-button {
   width: 100%;
   display: flex;
@@ -225,7 +232,7 @@ function selectOption(newValue: string | null) {
   outline: 2px solid var(--select-border-color) !important;
 }
 
-.select-wrapper:active {
+.select-content-wrapper:active {
   transform: scale(1);
 }
 
@@ -322,7 +329,7 @@ function selectOption(newValue: string | null) {
   font-size: var(--font-size-secondary);
 }
 
-.select-wrapper {
+.select-content-wrapper {
   width: calc(100% + 30px);
   position: absolute;
   left: -15px;
