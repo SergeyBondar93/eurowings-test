@@ -1,0 +1,27 @@
+[
+  {
+    "iataCode": "BER",
+    "city": "Berlin",
+    "country": "Germany"
+  },
+  {
+    "iataCode": "HAM",
+    "city": "Hamburg",
+    "country": "Germany"
+  },
+  {
+    "iataCode": "CGN",
+    "city": "Cologne Bonn",
+    "country": "Germany"
+  },
+  {
+    "iataCode": "FRA",
+    "city": "Frankfurt am Main",
+    "country": "Germany"
+  },
+  {
+    "iataCode": "MUC",
+    "city": "Munich",
+    "country": "Germany"
+  }
+]

@@ -1,0 +1,322 @@
+[
+  {
+    "origin": "BER",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 29.99
+  },
+  {
+    "origin": "BER",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 39.99
+  },
+  {
+    "origin": "BER",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 44.99
+  },
+  {
+    "origin": "BER",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 49.99
+  },
+  {
+    "origin": "BER",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 24.99
+  },
+  {
+    "origin": "BER",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 28.99
+  },
+  {
+    "origin": "BER",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 59.99
+  },
+  {
+    "origin": "BER",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 62.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 28.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 32.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 18.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 23.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 33.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 38.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 65.99
+  },
+  {
+    "origin": "HAM",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 69.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 31.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 29.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 22.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 26.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 27.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 30.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 50.99
+  },
+  {
+    "origin": "CGN",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 55.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 35.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 39.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 26.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 22.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 30.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 32.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 36.99
+  },
+  {
+    "origin": "FRA",
+    "destination": "MUC",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 31.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 60.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "BER",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 69.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 50.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "HAM",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 56.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 62.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "CGN",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 50.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 35.99
+  },
+  {
+    "origin": "MUC",
+    "destination": "FRA",
+    "departureDate": "2023-08-03",
+    "returnDate": "2023-08-03",
+    "seatAvailability": 5,
+    "price": 31.99
+  }
+]
