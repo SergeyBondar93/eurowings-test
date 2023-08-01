@@ -51,7 +51,9 @@ const emit = defineEmits(["update:modelValue"]);
 const isOpen = ref(false);
 
 const changeIsOpen = () => {
-  isOpen.value = true;
+  console.log("!LOL NEW", isOpen.value, !isOpen.value);
+
+  isOpen.value = !isOpen.value;
 };
 
 function clearValue() {
@@ -63,12 +65,10 @@ const selectedIndex = ref(-1);
 
 function onFocus() {
   console.log("!FOCUS", label);
-  isOpen.value = true;
 }
 
 function onBlur() {
   console.log("!BLUR", label);
-  isOpen.value = false;
   selectedIndex.value = -1;
 }
 
@@ -128,12 +128,12 @@ function selectOption(newValue: string | null) {
 <template>
   <Backdrop :isShow="isOpen" @update:isShow="isOpen = $event" />
 
-  <div
+  <button
     class="select-button"
     @click="changeIsOpen"
     @focus="onFocus"
     @blur="onBlur"
-    tabindex="0"
+    :tabindex="isOpen ? undefined : 0"
   >
     <span class="prefix-icon-wrapper">
       <slot name="input-prefix"></slot>
@@ -144,14 +144,9 @@ function selectOption(newValue: string | null) {
       <span class="value">{{ selectedOption?.label }}</span>
     </div>
 
-    <span
-      class="clear-icon-wrapper"
-      @click="clearValue"
-      tabindex="0"
-      role="button"
-    >
+    <button class="clear-icon-wrapper" @click="clearValue" tabindex="0">
       <RemoveIcon />
-    </span>
+    </button>
 
     <div
       v-if="isOpen"
@@ -195,7 +190,7 @@ function selectOption(newValue: string | null) {
               </span>
 
               <div class="option-text-wrapper">
-                <span>
+                <span class="option-label">
                   {{ item.label }}
                 </span>
 
@@ -208,7 +203,7 @@ function selectOption(newValue: string | null) {
         </ul>
       </div>
     </div>
-  </div>
+  </button>
 </template>
 
 <style scoped>
@@ -222,6 +217,8 @@ function selectOption(newValue: string | null) {
   padding: 0px 56px 0px 8px;
   cursor: pointer;
   position: relative;
+  background: transparent;
+  text-align: start;
 }
 
 .select-button:focus {
@@ -269,6 +266,9 @@ function selectOption(newValue: string | null) {
   gap: 4px;
 }
 
+.option-label {
+  font-size: var(--font-size-primary);
+}
 .option-sublabel {
   font-size: var(--font-size-secondary);
   color: var(--font-color-secondary);
@@ -298,6 +298,8 @@ function selectOption(newValue: string | null) {
   position: absolute;
   right: 0px;
   cursor: pointer;
+  background: transparent;
+  border: none;
 }
 .icon {
   width: 24px;
