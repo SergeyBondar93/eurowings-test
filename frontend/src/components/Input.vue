@@ -50,7 +50,7 @@ onMounted(() => {
 
 <template>
   <div class="custom-input">
-    <span class="input-prefix">
+    <span class="input-prefix" aria-hidden="true">
       <slot name="prefix"></slot>
     </span>
     <label :class="['label', { 'label-visible': !!value }]" :for="name">

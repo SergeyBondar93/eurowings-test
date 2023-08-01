@@ -2,7 +2,7 @@
 import Backdrop from "./Backdrop.vue";
 import Input from "./Input.vue";
 import RemoveIcon from "@assets/highlight_off_24px.svg";
-import { ref } from "vue";
+import { computed, onUpdated, ref } from "vue";
 
 type Option = {
   label: string;
@@ -15,12 +15,24 @@ interface Props {
   label: string;
   options: Option[];
   title: string;
+  selected: string;
 }
 
-const { label, name, options, title } = defineProps<Props>();
+const listWrapperRef = ref<HTMLDivElement | null>(null);
+
+const props = defineProps<Props>();
+const { label, name, title } = props;
+
+const options = computed(() => props.options);
+const selected = computed(() => props.selected);
+
+const selectedOption = computed(() => {
+  return options.value.find((option) => option.value === selected.value);
+});
+
+const emit = defineEmits(["update:modelValue"]);
 
 const inputValue = ref("");
-
 const isOpen = ref(false);
 
 const changeIsOpen = () => {
@@ -30,26 +42,100 @@ const changeIsOpen = () => {
 function clearInput() {
   inputValue.value = "";
 }
+
+const selectedIndex = ref(-1);
+
+function onFocus() {
+  isOpen.value = true;
+}
+
+function onBlur() {
+  isOpen.value = false;
+  selectedIndex.value = -1;
+}
+
+function onKeyDown(event: any) {
+  switch (event.key) {
+    case "ArrowDown":
+      event.preventDefault();
+      navigateOptions(1);
+      scrollIntoView();
+      break;
+    case "ArrowUp":
+      event.preventDefault();
+      navigateOptions(-1);
+      scrollIntoView();
+      break;
+    case "Enter":
+      if (isOpen.value && selectedIndex.value !== -1) {
+        selectOption(options.value[selectedIndex.value].value);
+      } else {
+        isOpen.value = !isOpen.value;
+      }
+      break;
+    case "Escape":
+      isOpen.value = false;
+      selectedIndex.value = -1;
+      break;
+    default:
+      break;
+  }
+}
+
+onUpdated(() => {
+  if (isOpen.value) {
+    document.addEventListener("keydown", onKeyDown);
+  } else {
+    document.removeEventListener("keydown", onKeyDown);
+  }
+});
+
+function navigateOptions(direction: number) {
+  let newIndex = selectedIndex.value + direction;
+  newIndex = Math.max(Math.min(newIndex, options.value.length - 1), 0);
+  selectedIndex.value = newIndex;
+}
+
+function scrollIntoView() {
+  const activeElement = listWrapperRef.value!.children[selectedIndex.value];
+  activeElement.scrollIntoView({ block: "nearest", behavior: "smooth" });
+}
+
+function selectOption(newValue: string) {
+  isOpen.value = false;
+  emit("update:modelValue", newValue);
+}
 </script>
 
 <template>
   <Backdrop :isShow="isOpen" @update:isShow="isOpen = $event" />
 
-  <div class="select-button" @click="changeIsOpen">
+  <div
+    class="select-button"
+    @click="changeIsOpen"
+    tabindex="1"
+    @focus="onFocus"
+    @blur="onBlur"
+  >
     <span class="prefix-icon-wrapper">
       <slot name="input-prefix"></slot>
     </span>
 
     <div class="text-wrapper">
       <span :class="['label', { filled: !!inputValue }]">{{ label }}</span>
-      <span class="value">{{ inputValue }}</span>
+      <span class="value">{{ selectedOption?.label }}</span>
     </div>
 
     <span class="clear-icon-wrapper" @click="clearInput">
       <RemoveIcon />
     </span>
 
-    <div v-if="isOpen" class="select-wrapper">
+    <div
+      v-if="isOpen"
+      class="select-wrapper"
+      :aria-expanded="isOpen"
+      :aria-haspopup="true"
+    >
       <div class="input-wrapper">
         <Input
           :name="name"
@@ -68,9 +154,19 @@ function clearInput() {
       <div class="list-wrapper">
         <div class="list-title">{{ title }}</div>
 
-        <ul>
-          <li v-for="item in options" :key="item.value" @click="">
-            <div class="list-item">
+        <ul ref="listWrapperRef">
+          <li
+            v-for="(item, index) in options"
+            :key="item.value"
+            @click="selectOption(item.value)"
+            :aria-selected="index === selectedIndex"
+          >
+            <div
+              :class="[
+                'list-item',
+                { 'selected-item': index === selectedIndex },
+              ]"
+            >
               <span class="prefix-wrapper">
                 <slot name="option-prefix"></slot>
               </span>
@@ -105,6 +201,10 @@ function clearInput() {
   position: relative;
 }
 
+.select-button:focus {
+  border: 2px solid red;
+}
+
 .list-wrapper {
   max-height: 100%;
   overflow-x: hidden;
@@ -128,9 +228,12 @@ function clearInput() {
   align-items: center;
   cursor: pointer;
   display: flex;
-  min-height: 75px;
+  height: 75px;
   padding: 16px;
   border-left: 2px solid transparent;
+}
+.list-item.selected-item {
+  border: 2px solid var(--brand-color);
 }
 
 .option-text-wrapper {

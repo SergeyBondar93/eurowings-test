@@ -7,7 +7,7 @@ import PlaneLandIcon from "@assets/flight_land_24px.svg";
 import PlaneIcon from "@assets/flight_24px.svg";
 import { useDictionariesStore, Airport } from "../stores/dictionaries";
 import { useFlightsStore } from "../stores/flights";
-import { computed } from "vue";
+import { computed, onUpdated, ref } from "vue";
 
 const dictionariesStore = useDictionariesStore();
 const flightsStore = useFlightsStore();
@@ -32,6 +32,9 @@ const destinationsOptions = computed(() => {
     })
     .map(airportToOption);
 });
+
+const selectedValue1 = ref("HAM");
+const selectedValue2 = ref("");
 </script>
 
 <template>
@@ -41,6 +44,8 @@ const destinationsOptions = computed(() => {
       name="departure"
       :options="originsOptions"
       title="National airports (A-Z)"
+      :selected="selectedValue1"
+      @update:modelValue="selectedValue1 = $event"
     >
       <template v-slot:input-prefix>
         <PlaneTakeoffIcon />
@@ -58,6 +63,8 @@ const destinationsOptions = computed(() => {
       name="destination"
       :options="destinationsOptions"
       title="National airports (A-Z)"
+      :selected="selectedValue2"
+      @update:modelValue="selectedValue2 = $event"
     >
       <template v-slot:input-prefix>
         <PlaneLandIcon />

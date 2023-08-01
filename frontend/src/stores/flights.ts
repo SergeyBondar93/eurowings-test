@@ -59,6 +59,13 @@ export const useFlightsStore = defineStore({
         this.$patch({ isLoading: false });
       }
     },
+
+    setOrigin(newValue: string) {
+      this.$patch({ origin: newValue });
+    },
+    setDestination(newValue: string) {
+      this.$patch({ destination: newValue });
+    },
   },
 });
 
