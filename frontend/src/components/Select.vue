@@ -15,7 +15,7 @@ interface Props {
   label: string;
   options: Option[];
   title: string;
-  selected: string;
+  selected: string | null;
 }
 
 const listWrapperRef = ref<HTMLDivElement | null>(null);
@@ -26,30 +26,48 @@ const { label, name, title } = props;
 const options = computed(() => props.options);
 const selected = computed(() => props.selected);
 
+const inputValue = ref("");
+
 const selectedOption = computed(() => {
   return options.value.find((option) => option.value === selected.value);
 });
 
+const normalizeString = (s?: string) => s?.toLocaleLowerCase().trim() || "";
+
+const filteredOptions = computed(() => {
+  return options.value.filter((option) => {
+    return [
+      normalizeString(option.label),
+      normalizeString(option.subLabel),
+      normalizeString(option.value),
+    ].some((text) => {
+      return text?.includes(inputValue.value.trim().toLocaleLowerCase());
+    });
+  });
+});
+
 const emit = defineEmits(["update:modelValue"]);
 
-const inputValue = ref("");
 const isOpen = ref(false);
 
 const changeIsOpen = () => {
   isOpen.value = true;
 };
 
-function clearInput() {
+function clearValue() {
   inputValue.value = "";
+  selectOption(null);
 }
 
 const selectedIndex = ref(-1);
 
 function onFocus() {
+  console.log("!FOCUS", label);
   isOpen.value = true;
 }
 
 function onBlur() {
+  console.log("!BLUR", label);
   isOpen.value = false;
   selectedIndex.value = -1;
 }
@@ -68,7 +86,7 @@ function onKeyDown(event: any) {
       break;
     case "Enter":
       if (isOpen.value && selectedIndex.value !== -1) {
-        selectOption(options.value[selectedIndex.value].value);
+        selectOption(filteredOptions.value[selectedIndex.value].value);
       } else {
         isOpen.value = !isOpen.value;
       }
@@ -92,7 +110,7 @@ onUpdated(() => {
 
 function navigateOptions(direction: number) {
   let newIndex = selectedIndex.value + direction;
-  newIndex = Math.max(Math.min(newIndex, options.value.length - 1), 0);
+  newIndex = Math.max(Math.min(newIndex, filteredOptions.value.length - 1), 0);
   selectedIndex.value = newIndex;
 }
 
@@ -101,7 +119,7 @@ function scrollIntoView() {
   activeElement.scrollIntoView({ block: "nearest", behavior: "smooth" });
 }
 
-function selectOption(newValue: string) {
+function selectOption(newValue: string | null) {
   isOpen.value = false;
   emit("update:modelValue", newValue);
 }
@@ -113,20 +131,25 @@ function selectOption(newValue: string) {
   <div
     class="select-button"
     @click="changeIsOpen"
-    tabindex="1"
     @focus="onFocus"
     @blur="onBlur"
+    tabindex="0"
   >
     <span class="prefix-icon-wrapper">
       <slot name="input-prefix"></slot>
     </span>
 
     <div class="text-wrapper">
-      <span :class="['label', { filled: !!inputValue }]">{{ label }}</span>
+      <span :class="['label', { filled: !!selectedOption }]">{{ label }}</span>
       <span class="value">{{ selectedOption?.label }}</span>
     </div>
 
-    <span class="clear-icon-wrapper" @click="clearInput">
+    <span
+      class="clear-icon-wrapper"
+      @click="clearValue"
+      tabindex="0"
+      role="button"
+    >
       <RemoveIcon />
     </span>
 
@@ -140,7 +163,7 @@ function selectOption(newValue: string) {
         <Input
           :name="name"
           :isClearable="true"
-          :value="inputValue"
+          :value="selectedOption?.label || inputValue"
           :autofocus="isOpen"
           :label="label"
           @update:model-value="inputValue = $event"
@@ -156,7 +179,7 @@ function selectOption(newValue: string) {
 
         <ul ref="listWrapperRef">
           <li
-            v-for="(item, index) in options"
+            v-for="(item, index) in filteredOptions"
             :key="item.value"
             @click="selectOption(item.value)"
             :aria-selected="index === selectedIndex"
@@ -202,7 +225,11 @@ function selectOption(newValue: string) {
 }
 
 .select-button:focus {
-  border: 2px solid red;
+  outline: 2px solid var(--select-border-color) !important;
+}
+
+.select-wrapper:active {
+  transform: scale(1);
 }
 
 .list-wrapper {

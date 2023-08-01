@@ -7,10 +7,14 @@ import PlaneLandIcon from "@assets/flight_land_24px.svg";
 import PlaneIcon from "@assets/flight_24px.svg";
 import { useDictionariesStore, Airport } from "../stores/dictionaries";
 import { useFlightsStore } from "../stores/flights";
-import { computed, onUpdated, ref } from "vue";
+import { computed } from "vue";
+import { storeToRefs } from "pinia";
 
 const dictionariesStore = useDictionariesStore();
 const flightsStore = useFlightsStore();
+
+const { airports } = storeToRefs(dictionariesStore);
+const { destination, origin } = storeToRefs(flightsStore);
 
 const airportToOption = (airport: Airport) => ({
   value: airport.iataCode,
@@ -19,22 +23,27 @@ const airportToOption = (airport: Airport) => ({
 });
 
 const originsOptions = computed(() => {
-  return dictionariesStore.airports
+  return airports.value
     .filter((airport) => {
-      return airport.iataCode !== flightsStore.destination;
-    })
-    .map(airportToOption);
-});
-const destinationsOptions = computed(() => {
-  return dictionariesStore.airports
-    .filter((airport) => {
-      return airport.iataCode !== flightsStore.origin;
+      return airport.iataCode !== destination.value;
     })
     .map(airportToOption);
 });
 
-const selectedValue1 = ref("HAM");
-const selectedValue2 = ref("");
+const destinationsOptions = computed(() => {
+  return airports.value
+    .filter((airport) => {
+      return airport.iataCode !== origin.value;
+    })
+    .map(airportToOption);
+});
+
+const changeOrigin = (newOrigin: string) => {
+  flightsStore.setOrigin(newOrigin);
+};
+const changeDestination = (newDestination: string) => {
+  flightsStore.setDestination(newDestination);
+};
 </script>
 
 <template>
@@ -44,8 +53,8 @@ const selectedValue2 = ref("");
       name="departure"
       :options="originsOptions"
       title="National airports (A-Z)"
-      :selected="selectedValue1"
-      @update:modelValue="selectedValue1 = $event"
+      :selected="origin"
+      @update:modelValue="changeOrigin"
     >
       <template v-slot:input-prefix>
         <PlaneTakeoffIcon />
@@ -63,8 +72,8 @@ const selectedValue2 = ref("");
       name="destination"
       :options="destinationsOptions"
       title="National airports (A-Z)"
-      :selected="selectedValue2"
-      @update:modelValue="selectedValue2 = $event"
+      :selected="destination"
+      @update:modelValue="changeDestination"
     >
       <template v-slot:input-prefix>
         <PlaneLandIcon />
