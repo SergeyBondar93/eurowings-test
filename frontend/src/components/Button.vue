@@ -6,7 +6,7 @@
 
 <style scoped lang="scss">
 .button {
-  height: 100%;
+  height: 55px;
   width: 100%;
   display: flex;
   align-items: center;
@@ -19,5 +19,10 @@
   border: none;
   outline: none;
   cursor: pointer;
+  transition: 0.3s;
+}
+
+.button:active {
+  transform: scale(0.93);
 }
 </style>

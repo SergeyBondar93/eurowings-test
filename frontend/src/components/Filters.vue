@@ -14,7 +14,7 @@ const dictionariesStore = useDictionariesStore();
 const flightsStore = useFlightsStore();
 
 const { airports } = storeToRefs(dictionariesStore);
-const { destination, origin } = storeToRefs(flightsStore);
+const { destination, origin, searchBtnClicked } = storeToRefs(flightsStore);
 
 const airportToOption = (airport: Airport) => ({
   value: airport.iataCode,
@@ -44,6 +44,10 @@ const changeOrigin = (newOrigin: string) => {
 const changeDestination = (newDestination: string) => {
   flightsStore.setDestination(newDestination);
 };
+
+const handleSearch = () => {
+  flightsStore.setSearchBtnClicked(true);
+};
 </script>
 
 <template>
@@ -67,6 +71,10 @@ const changeDestination = (newDestination: string) => {
           </span>
         </template>
       </Select>
+
+      <span v-if="searchBtnClicked && !origin" class="error-message"
+        >Please, fill in this field</span
+      >
     </div>
     <div class="destination-selector">
       <Select
@@ -87,10 +95,14 @@ const changeDestination = (newDestination: string) => {
           </span>
         </template>
       </Select>
+
+      <span v-if="searchBtnClicked && !destination" class="error-message"
+        >Please, fill in this field</span
+      >
     </div>
 
     <div class="search-button">
-      <Button>Lol kek</Button>
+      <Button @click="handleSearch">Search for flight</Button>
     </div>
   </div>
 </template>
@@ -140,5 +152,10 @@ const changeDestination = (newDestination: string) => {
 
 .option-prefix {
   transform: rotate(90deg);
+}
+
+.error-message {
+  color: $error-message-color;
+  font-size: $font-size-secondary;
 }
 </style>

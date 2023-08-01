@@ -23,6 +23,7 @@ interface FlightsState {
   isLoading: boolean;
   error: string | null;
   flights: Flight[];
+  searchBtnClicked: boolean;
 }
 
 const defaultState: FlightsState = {
@@ -31,6 +32,7 @@ const defaultState: FlightsState = {
   isLoading: true,
   error: null,
   flights: [],
+  searchBtnClicked: false,
 };
 
 export const useFlightsStore = defineStore({
@@ -65,6 +67,10 @@ export const useFlightsStore = defineStore({
     },
     setDestination(newValue: string) {
       this.$patch({ destination: newValue });
+    },
+
+    setSearchBtnClicked(value: boolean) {
+      this.$patch({ searchBtnClicked: value });
     },
   },
 });
