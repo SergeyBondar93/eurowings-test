@@ -6,6 +6,7 @@
 The frontend and e2e tests work only in combination with the server part.
 Filtering of offers is done on the backend side to be more like a regular application
 
+- First we need to install the frontend and backend dependencies, to do this, go to their folders in the console and enter `npm install` command
 - To launch the frontend, you need to enter the folder with it and run `npm run dev`
 - To launch the backend, you need to enter the folder with it and run `npm start`
 - To start e2e tests, launch backend, and in frontend folder `npm run test:e2e:dev`.
