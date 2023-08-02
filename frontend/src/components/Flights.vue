@@ -1,8 +1,9 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+
 import Offer from './Offer.vue'
 import Loader from './Loader.vue'
 import { useFlightsStore } from '../stores/flights'
-import { storeToRefs } from 'pinia'
 
 const flightsStore = useFlightsStore()
 

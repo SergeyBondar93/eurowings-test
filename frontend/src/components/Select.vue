@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { computed, onUpdated, ref } from 'vue'
+
+import RemoveIcon from '@assets/highlight_off_24px.svg'
+
 import Backdrop from './Backdrop.vue'
 import Input from './Input.vue'
 import Loader from './Loader.vue'
-import RemoveIcon from '@assets/highlight_off_24px.svg'
-import { computed, onUpdated, ref } from 'vue'
 
 export type SelectorExpose = { buttonRef: HTMLButtonElement }
 

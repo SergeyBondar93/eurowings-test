@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { toRefs } from 'vue'
+
 import ArrowDownIcon from '@assets/keyboard_arrow_down_24px.svg'
 import CommitIcon from '@assets/commit_24px.svg'
-import { toRefs } from 'vue'
 
 interface Props {
   origin: string
@@ -13,7 +14,7 @@ interface Props {
 const props = defineProps<Props>()
 const { origin, destination, price } = toRefs(props)
 
-// i think that it should be in API, but it was not :(
+// I think that it should be in API, but it was not :(
 const timeFrom = `6:00`.padStart(5, '0')
 const ampmFrom = 'PM'
 const timeTo = `9:00`.padStart(5, '0')

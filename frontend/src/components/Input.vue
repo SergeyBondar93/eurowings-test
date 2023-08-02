@@ -1,28 +1,29 @@
 <script setup lang="ts">
-import RemoveIcon from '@assets/highlight_off_24px.svg'
 import { computed, onMounted, ref } from 'vue'
+
+import RemoveIcon from '@assets/highlight_off_24px.svg'
 
 const { value, isClearable, autofocus } = defineProps({
   name: {
     type: String,
-    required: true,
+    required: true
   },
   value: {
     type: String,
-    required: true,
+    required: true
   },
   label: {
     type: String,
-    required: true,
+    required: true
   },
   isClearable: {
     type: Boolean,
-    required: false,
+    required: false
   },
   autofocus: {
     type: Boolean,
-    required: false,
-  },
+    required: false
+  }
 })
 const inputRef = ref<HTMLInputElement | null>(null)
 const emit = defineEmits(['update:modelValue'])
