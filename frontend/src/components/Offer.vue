@@ -1,24 +1,42 @@
 <script setup lang="ts">
 import ArrowDownIcon from "@assets/keyboard_arrow_down_24px.svg";
 import CommitIcon from "@assets/commit_24px.svg";
+import { toRefs } from "vue";
+
+interface Props {
+  origin: string;
+  destination: string;
+  seatAvailability: number;
+  price: number;
+}
+
+const props = defineProps<Props>();
+const { origin, destination, price } = toRefs(props);
+
+// i think that it should be in API, but it was not :(
+const timeFrom = `6:00`.padStart(5, "0");
+const ampmFrom = "PM";
+const timeTo = `9:00`.padStart(5, "0");
+const ampmTo = "AM";
+const duration = "3:00".padStart(5, "0");
 </script>
 
 <template>
   <div class="offer-wrapper">
     <div class="route">
       <div class="route-place">
-        <span class="route-place-airport">HAM</span>
+        <span class="route-place-airport">{{ origin }}</span>
         <span class="route-place-time"
-          >{{ `6:00`.padStart(5, "0")
-          }}<span class="route-place-time-ampm">PM</span></span
+          >{{ timeFrom
+          }}<span class="route-place-time-ampm">{{ ampmFrom }}</span></span
         >
       </div>
       <CommitIcon class="commit-icon"></CommitIcon>
       <div class="route-place">
-        <span class="route-place-airport">MUC</span>
+        <span class="route-place-airport">{{ destination }}</span>
         <span class="route-place-time"
-          >{{ `9:00`.padStart(5, "0")
-          }}<span class="route-place-time-ampm">PM</span></span
+          >{{ timeTo
+          }}<span class="route-place-time-ampm">{{ ampmTo }}</span></span
         >
       </div>
     </div>
@@ -26,7 +44,7 @@ import CommitIcon from "@assets/commit_24px.svg";
     <div class="time-stops">
       <div class="time">
         <span class="time-label">Travel time</span>
-        <time class="time-text">{{ `1:45`.padStart(5, "0") }}h </time>
+        <time class="time-text">{{ duration }}h </time>
       </div>
 
       <div class="divider"></div>
@@ -39,7 +57,7 @@ import CommitIcon from "@assets/commit_24px.svg";
     <div class="price">
       <div class="price-label">Flight from:</div>
 
-      <div class="price-text">€119.99</div>
+      <div class="price-text">€{{ price }}</div>
     </div>
 
     <button class="open-button">

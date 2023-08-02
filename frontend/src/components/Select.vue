@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Backdrop from "./Backdrop.vue";
 import Input from "./Input.vue";
+import Loader from "./Loader.vue";
 import RemoveIcon from "@assets/highlight_off_24px.svg";
 import { computed, onUpdated, ref } from "vue";
 
@@ -16,6 +17,8 @@ interface Props {
   options: Option[];
   title: string;
   selected: string | null;
+  disabled?: boolean;
+  isLoading?: boolean;
 }
 
 const listWrapperRef = ref<HTMLDivElement | null>(null);
@@ -25,6 +28,8 @@ const { label, name, title } = props;
 
 const options = computed(() => props.options);
 const selected = computed(() => props.selected);
+const disabled = computed(() => props.disabled);
+const isLoading = computed(() => props.isLoading);
 
 const inputValue = ref("");
 
@@ -126,13 +131,13 @@ function selectOption(newValue: string | null) {
 <template>
   <Backdrop :isShow="isOpen" @update:isShow="isOpen = $event" />
 
-  <div class="select-wrapper">
+  <div :class="['select-wrapper', { 'select-wrapper-disabled': disabled }]">
     <button
-      class="select-button"
+      :class="['select-button', { 'select-button-disabled': disabled }]"
       @click="changeIsOpen"
       @focus="onFocus"
       @blur="onBlur"
-      :tabindex="isOpen ? undefined : 0"
+      :disabled="disabled"
     >
       <span class="prefix-icon-wrapper">
         <slot name="input-prefix"></slot>
@@ -145,9 +150,19 @@ function selectOption(newValue: string | null) {
         <span class="value">{{ selectedOption?.label }}</span>
       </div>
 
-      <button class="clear-icon-wrapper" @click="clearValue" tabindex="0">
+      <button
+        :class="[
+          'clear-icon-wrapper',
+          { 'clear-icon-wrapper-disabled': disabled },
+        ]"
+        @click="clearValue"
+        tabindex="0"
+        :disabled="disabled"
+        v-if="!isLoading"
+      >
         <RemoveIcon />
       </button>
+      <div class="loader-wrapper" v-else><Loader /></div>
     </button>
     <div
       v-if="isOpen"
@@ -208,8 +223,22 @@ function selectOption(newValue: string | null) {
 </template>
 
 <style scoped lang="scss">
+.loader-wrapper {
+  transform: scale(0.5);
+  position: absolute;
+  right: -10px;
+}
 .select-wrapper {
   position: relative;
+}
+
+.select-wrapper.select-wrapper-disabled {
+  opacity: 0.7;
+}
+
+.select-button.select-button-disabled,
+.clear-icon-wrapper.clear-icon-wrapper-disabled {
+  cursor: not-allowed;
 }
 
 .select-button {
@@ -227,7 +256,7 @@ function selectOption(newValue: string | null) {
 }
 
 .select-button:focus {
-  outline: 2px solid $select-border-color;
+  outline: 2px solid $brand-color;
 }
 
 .select-content-wrapper:active {
@@ -306,6 +335,10 @@ function selectOption(newValue: string | null) {
   background: transparent;
   border: none;
 }
+.clear-icon-wrapper:focus {
+  outline: 2px solid $brand-color;
+}
+
 .icon {
   width: 24px;
   height: 24px;

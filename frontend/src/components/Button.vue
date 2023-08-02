@@ -23,6 +23,15 @@
 }
 
 .button:active {
-  transform: scale(0.93);
+  transform: scale(0.95);
+}
+.button[disabled] {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: scale(1);
+}
+.button:focus {
+  outline: 2px solid $brand-color;
+  transform: scale(0.95);
 }
 </style>

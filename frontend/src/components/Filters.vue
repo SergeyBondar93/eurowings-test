@@ -13,7 +13,11 @@ import { storeToRefs } from "pinia";
 const dictionariesStore = useDictionariesStore();
 const flightsStore = useFlightsStore();
 
-const { airports } = storeToRefs(dictionariesStore);
+const {
+  airports,
+  error: dictionariesError,
+  isLoading: isLoadingDictionaries,
+} = storeToRefs(dictionariesStore);
 const { destination, origin, searchBtnClicked } = storeToRefs(flightsStore);
 
 const airportToOption = (airport: Airport) => ({
@@ -47,6 +51,10 @@ const changeDestination = (newDestination: string) => {
 
 const handleSearch = () => {
   flightsStore.setSearchBtnClicked(true);
+
+  if (destination.value && origin.value) {
+    flightsStore.getFlights();
+  }
 };
 </script>
 
@@ -60,6 +68,8 @@ const handleSearch = () => {
         title="National airports (A-Z)"
         :selected="origin"
         @update:modelValue="changeOrigin"
+        :disabled="isLoadingDictionaries || !!dictionariesError"
+        :isLoading="isLoadingDictionaries"
       >
         <template v-slot:input-prefix>
           <PlaneTakeoffIcon />
@@ -84,6 +94,8 @@ const handleSearch = () => {
         title="National airports (A-Z)"
         :selected="destination"
         @update:modelValue="changeDestination"
+        :disabled="isLoadingDictionaries || !!dictionariesError"
+        :isLoading="isLoadingDictionaries"
       >
         <template v-slot:input-prefix>
           <PlaneLandIcon />
@@ -102,7 +114,11 @@ const handleSearch = () => {
     </div>
 
     <div class="search-button">
-      <Button @click="handleSearch">Search for flight</Button>
+      <Button
+        :disabled="isLoadingDictionaries || !!dictionariesError"
+        @click="handleSearch"
+        >Search for flight</Button
+      >
     </div>
   </div>
 </template>
