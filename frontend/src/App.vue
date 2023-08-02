@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { onBeforeMount } from "vue";
-import Filters from "./components/Filters.vue";
-import Flights from "./components/Flights.vue";
-import { useDictionariesStore } from "./stores/dictionaries";
+import { onBeforeMount } from 'vue'
+import Filters from './components/Filters.vue'
+import Flights from './components/Flights.vue'
+import { useDictionariesStore } from './stores/dictionaries'
 
-const dictionariesStore = useDictionariesStore();
+const dictionariesStore = useDictionariesStore()
 
 onBeforeMount(() => {
-  dictionariesStore.getAirports();
-});
+  dictionariesStore.getAirports()
+})
 </script>
 
 <template>

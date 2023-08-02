@@ -1,5 +1,5 @@
 <template>
-  <div class="lds-ring">
+  <div class="lds-ring" data-testid="loader">
     <div></div>
     <div></div>
     <div></div>

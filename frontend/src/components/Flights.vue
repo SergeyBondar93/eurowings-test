@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import Offer from "./Offer.vue";
-import Loader from "./Loader.vue";
-import { useFlightsStore } from "../stores/flights";
-import { storeToRefs } from "pinia";
+import Offer from './Offer.vue'
+import Loader from './Loader.vue'
+import { useFlightsStore } from '../stores/flights'
+import { storeToRefs } from 'pinia'
 
-const flightsStore = useFlightsStore();
+const flightsStore = useFlightsStore()
 
-const { flights, isLoading, error } = storeToRefs(flightsStore);
+const { flights, isLoading, error } = storeToRefs(flightsStore)
 </script>
 
 <template>
@@ -14,9 +14,7 @@ const { flights, isLoading, error } = storeToRefs(flightsStore);
     <div class="loader-wrapper" v-if="isLoading">
       <Loader />
     </div>
-    <span class="offers-error" v-if="error"
-      >Something went wrong while loading offers</span
-    >
+    <span class="offers-error" v-if="error">Something went wrong while loading offers</span>
 
     <Offer
       v-for="(flight, index) in flights"

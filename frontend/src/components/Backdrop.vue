@@ -4,10 +4,10 @@ defineProps({
     type: Boolean,
     default: false,
   },
-});
+})
 
-const emit = defineEmits();
-const closeBackdrop = () => emit("update:isShow", false);
+const emit = defineEmits(['update:isShow'])
+const closeBackdrop = () => emit('update:isShow', false)
 </script>
 
 <template>

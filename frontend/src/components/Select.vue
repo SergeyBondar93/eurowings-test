@@ -1,51 +1,50 @@
 <script setup lang="ts">
-import Backdrop from "./Backdrop.vue";
-import Input from "./Input.vue";
-import Loader from "./Loader.vue";
-import RemoveIcon from "@assets/highlight_off_24px.svg";
-import { computed, onUpdated, ref } from "vue";
+import Backdrop from './Backdrop.vue'
+import Input from './Input.vue'
+import Loader from './Loader.vue'
+import RemoveIcon from '@assets/highlight_off_24px.svg'
+import { computed, onUpdated, ref } from 'vue'
 
-export type SelectorExpose = { buttonRef: HTMLButtonElement };
+export type SelectorExpose = { buttonRef: HTMLButtonElement }
 
 type Option = {
-  label: string;
-  value: string;
-  subLabel?: string;
-};
-
-interface Props {
-  name: string;
-  label: string;
-  options: Option[];
-  title: string;
-  selected: string | null;
-  disabled?: boolean;
-  isLoading?: boolean;
-  ref?: any;
+  label: string
+  value: string
+  subLabel?: string
 }
 
-const listWrapperRef = ref<HTMLDivElement | null>(null);
+interface Props {
+  name: string
+  label: string
+  options: Option[]
+  title: string
+  selected: string | null
+  disabled?: boolean
+  isLoading?: boolean
+}
 
-const props = defineProps<Props>();
-const { label, name, title } = props;
+const listWrapperRef = ref<HTMLDivElement | null>(null)
 
-const options = computed(() => props.options);
-const selected = computed(() => props.selected);
-const disabled = computed(() => props.disabled);
-const isLoading = computed(() => props.isLoading);
-const buttonRef = ref<HTMLButtonElement | null>(null);
+const props = defineProps<Props>()
+const { label, name, title } = props
+
+const options = computed(() => props.options)
+const selected = computed(() => props.selected)
+const disabled = computed(() => props.disabled)
+const isLoading = computed(() => props.isLoading)
+const buttonRef = ref<HTMLButtonElement | null>(null)
 
 defineExpose({
   buttonRef,
-});
+})
 
-const inputValue = ref("");
+const inputValue = ref('')
 
 const selectedOption = computed(() => {
-  return options.value.find((option) => option.value === selected.value);
-});
+  return options.value.find((option) => option.value === selected.value)
+})
 
-const normalizeString = (s?: string) => s?.toLocaleLowerCase().trim() || "";
+const normalizeString = (s?: string) => s?.toLocaleLowerCase().trim() || ''
 
 const filteredOptions = computed(() => {
   return options.value.filter((option) => {
@@ -54,86 +53,86 @@ const filteredOptions = computed(() => {
       normalizeString(option.subLabel),
       normalizeString(option.value),
     ].some((text) => {
-      return text?.includes(inputValue.value.trim().toLocaleLowerCase());
-    });
-  });
-});
+      return text?.includes(inputValue.value.trim().toLocaleLowerCase())
+    })
+  })
+})
 
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(['update:modelValue'])
 
-const isOpen = ref(false);
+const isOpen = ref(false)
 
 const changeIsOpen = () => {
-  isOpen.value = !isOpen.value;
-};
-
-function clearValue() {
-  inputValue.value = "";
-  selectOption(null);
+  isOpen.value = !isOpen.value
 }
 
-const selectedIndex = ref(-1);
+function clearValue() {
+  inputValue.value = ''
+  selectOption(null)
+}
+
+const selectedIndex = ref(-1)
 
 function onFocus() {
-  console.log("!FOCUS", label);
+  console.log('!FOCUS', label)
 }
 
 function onBlur() {
-  console.log("!BLUR", label);
-  selectedIndex.value = -1;
+  console.log('!BLUR', label)
+  selectedIndex.value = -1
 }
 
 function onKeyDown(event: any) {
   switch (event.key) {
-    case "ArrowDown":
-      event.preventDefault();
-      navigateOptions(1);
-      scrollIntoView();
-      break;
-    case "ArrowUp":
-      event.preventDefault();
-      navigateOptions(-1);
-      scrollIntoView();
-      break;
-    case "Enter":
+    case 'ArrowDown':
+      event.preventDefault()
+      navigateOptions(1)
+      scrollIntoView()
+      break
+    case 'ArrowUp':
+      event.preventDefault()
+      navigateOptions(-1)
+      scrollIntoView()
+      break
+    case 'Enter':
       if (isOpen.value && selectedIndex.value !== -1) {
-        selectOption(filteredOptions.value[selectedIndex.value].value);
+        selectOption(filteredOptions.value[selectedIndex.value].value)
       } else {
-        isOpen.value = !isOpen.value;
+        isOpen.value = !isOpen.value
       }
-      break;
-    case "Tab":
-    case "Escape":
-      isOpen.value = false;
-      selectedIndex.value = -1;
-      break;
+      break
+    case 'Tab':
+    case 'Escape':
+      isOpen.value = false
+      selectedIndex.value = -1
+      break
     default:
-      break;
+      break
   }
 }
 
 onUpdated(() => {
   if (isOpen.value) {
-    document.addEventListener("keydown", onKeyDown);
+    document.addEventListener('keydown', onKeyDown)
   } else {
-    document.removeEventListener("keydown", onKeyDown);
+    document.removeEventListener('keydown', onKeyDown)
   }
-});
+})
 
 function navigateOptions(direction: number) {
-  let newIndex = selectedIndex.value + direction;
-  newIndex = Math.max(Math.min(newIndex, filteredOptions.value.length - 1), 0);
-  selectedIndex.value = newIndex;
+  let newIndex = selectedIndex.value + direction
+  newIndex = Math.max(Math.min(newIndex, filteredOptions.value.length - 1), 0)
+  selectedIndex.value = newIndex
 }
 
 function scrollIntoView() {
-  const activeElement = listWrapperRef.value!.children[selectedIndex.value];
-  activeElement.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  const activeElement = listWrapperRef.value!.children[selectedIndex.value]
+  activeElement.scrollIntoView({ block: 'nearest', behavior: 'smooth' })
 }
 
 function selectOption(newValue: string | null) {
-  isOpen.value = false;
-  emit("update:modelValue", newValue);
+  isOpen.value = false
+  emit('update:modelValue', newValue)
 }
 </script>
 
@@ -155,17 +154,12 @@ function selectOption(newValue: string | null) {
       </span>
 
       <div class="text-wrapper">
-        <span :class="['label', { filled: !!selectedOption }]">{{
-          label
-        }}</span>
+        <span :class="['label', { filled: !!selectedOption }]">{{ label }}</span>
         <span class="value">{{ selectedOption?.label }}</span>
       </div>
 
       <button
-        :class="[
-          'clear-icon-wrapper',
-          { 'clear-icon-wrapper-disabled': disabled },
-        ]"
+        :class="['clear-icon-wrapper', { 'clear-icon-wrapper-disabled': disabled }]"
         @click="clearValue"
         tabindex="0"
         :disabled="disabled"
@@ -207,12 +201,7 @@ function selectOption(newValue: string | null) {
             @click="selectOption(item.value)"
             :aria-selected="index === selectedIndex"
           >
-            <div
-              :class="[
-                'list-item',
-                { 'selected-item': index === selectedIndex },
-              ]"
-            >
+            <div :class="['list-item', { 'selected-item': index === selectedIndex }]">
               <span class="prefix-wrapper">
                 <slot name="option-prefix"></slot>
               </span>

@@ -1,71 +1,73 @@
 <script setup lang="ts">
-import Select, { SelectorExpose } from "./Select.vue";
-import Button from "./Button.vue";
+import Select from './Select.vue'
+import type { SelectorExpose } from './Select.vue'
+import Button from './Button.vue'
 
-import PlaneTakeoffIcon from "@assets/flight_takeoff_24px.svg";
-import PlaneLandIcon from "@assets/flight_land_24px.svg";
-import PlaneIcon from "@assets/flight_24px.svg";
-import { useDictionariesStore, Airport } from "../stores/dictionaries";
-import { useFlightsStore } from "../stores/flights";
-import { computed, ref } from "vue";
-import { storeToRefs } from "pinia";
+import PlaneTakeoffIcon from '@assets/flight_takeoff_24px.svg'
+import PlaneLandIcon from '@assets/flight_land_24px.svg'
+import PlaneIcon from '@assets/flight_24px.svg'
+import { useDictionariesStore } from '../stores/dictionaries'
+import type { Airport } from '../stores/dictionaries'
+import { useFlightsStore } from '../stores/flights'
+import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
 
-const dictionariesStore = useDictionariesStore();
-const flightsStore = useFlightsStore();
+const dictionariesStore = useDictionariesStore()
+const flightsStore = useFlightsStore()
 
-const originSelectorRef = ref<SelectorExpose | null>(null);
-const destinationSelectorRef = ref<SelectorExpose | null>(null);
+const originSelectorRef = ref<SelectorExpose | null>(null)
+const destinationSelectorRef = ref<SelectorExpose | null>(null)
 
 const {
   airports,
   error: dictionariesError,
   isLoading: isLoadingDictionaries,
-} = storeToRefs(dictionariesStore);
-const { destination, origin, searchBtnClicked } = storeToRefs(flightsStore);
+} = storeToRefs(dictionariesStore)
+const { destination, origin, searchBtnClicked } = storeToRefs(flightsStore)
 
 const airportToOption = (airport: Airport) => ({
   value: airport.iataCode,
   label: `${airport.city} • ${airport.iataCode}`,
   subLabel: airport.country,
-});
+})
 
 const originsOptions = computed(() => {
   return airports.value
     .filter((airport) => {
-      return airport.iataCode !== destination.value;
+      return airport.iataCode !== destination.value
     })
-    .map(airportToOption);
-});
+    .map(airportToOption)
+})
 
 const destinationsOptions = computed(() => {
   return airports.value
     .filter((airport) => {
-      return airport.iataCode !== origin.value;
+      return airport.iataCode !== origin.value
     })
-    .map(airportToOption);
-});
+    .map(airportToOption)
+})
 
 const changeOrigin = (newOrigin: string) => {
-  flightsStore.setOrigin(newOrigin);
-};
+  flightsStore.setOrigin(newOrigin)
+}
 const changeDestination = (newDestination: string) => {
-  flightsStore.setDestination(newDestination);
-};
+  flightsStore.setDestination(newDestination)
+}
 
 const handleSearch = () => {
-  flightsStore.setSearchBtnClicked(true);
+  flightsStore.setSearchBtnClicked(true)
 
   if (!destination.value) {
-    destinationSelectorRef.value?.buttonRef.focus();
+    destinationSelectorRef.value?.buttonRef.focus()
   }
   if (!origin.value) {
-    originSelectorRef.value?.buttonRef.focus();
+    originSelectorRef.value?.buttonRef.focus()
   }
 
   if (destination.value && origin.value) {
-    flightsStore.getFlights();
+    flightsStore.getFlights()
   }
-};
+}
 </script>
 
 <template>
@@ -160,9 +162,9 @@ const handleSearch = () => {
   grid-template-columns: 1fr;
   row-gap: 16px;
   grid-template-areas:
-    "origin"
-    "destination"
-    "search";
+    'origin'
+    'destination'
+    'search';
 }
 
 @media (min-width: $tablet-breakpoint) {
@@ -172,8 +174,8 @@ const handleSearch = () => {
     row-gap: 16px;
     column-gap: 16px;
     grid-template-areas:
-      "origin destination"
-      "search search";
+      'origin destination'
+      'search search';
   }
 }
 
@@ -181,7 +183,7 @@ const handleSearch = () => {
   .filter-wrapper {
     grid-template-columns: 2fr 2fr 1fr;
     grid-template-rows: 1fr;
-    grid-template-areas: "origin destination search";
+    grid-template-areas: 'origin destination search';
   }
 }
 

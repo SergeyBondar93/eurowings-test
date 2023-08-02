@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import RemoveIcon from "@assets/highlight_off_24px.svg";
-import { computed, onMounted, ref } from "vue";
+import RemoveIcon from '@assets/highlight_off_24px.svg'
+import { computed, onMounted, ref } from 'vue'
 
 const { value, isClearable, autofocus } = defineProps({
   name: {
@@ -23,29 +23,29 @@ const { value, isClearable, autofocus } = defineProps({
     type: Boolean,
     required: false,
   },
-});
-const inputRef = ref<HTMLInputElement | null>(null);
-const emit = defineEmits(["update:modelValue"]);
+})
+const inputRef = ref<HTMLInputElement | null>(null)
+const emit = defineEmits(['update:modelValue'])
 
 function clearInput() {
-  emit("update:modelValue", "");
-  (inputRef.value as HTMLInputElement).focus();
+  emit('update:modelValue', '')
+  ;(inputRef.value as HTMLInputElement).focus()
 }
 
 function onInput(event: Event) {
-  const inputValue = (event.target as HTMLInputElement).value;
-  emit("update:modelValue", inputValue);
+  const inputValue = (event.target as HTMLInputElement).value
+  emit('update:modelValue', inputValue)
 }
 
 const withClearIcon = computed(() => {
-  return isClearable && value !== "";
-});
+  return isClearable && value !== ''
+})
 
 onMounted(() => {
   if (autofocus) {
-    (inputRef.value as HTMLInputElement).focus();
+    ;(inputRef.value as HTMLInputElement).focus()
   }
-});
+})
 </script>
 
 <template>
