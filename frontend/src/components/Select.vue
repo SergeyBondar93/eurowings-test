@@ -51,8 +51,6 @@ const emit = defineEmits(["update:modelValue"]);
 const isOpen = ref(false);
 
 const changeIsOpen = () => {
-  console.log("!LOL NEW", isOpen.value, !isOpen.value);
-
   isOpen.value = !isOpen.value;
 };
 
@@ -336,7 +334,7 @@ function selectOption(newValue: string | null) {
   height: 400px;
   top: -16px;
   background: $background-color-primary;
-  border-radius: 8px;
+  border-radius: $border-radius-main;
   z-index: 2;
   display: flex;
   flex-direction: column;

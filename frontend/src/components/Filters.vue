@@ -130,7 +130,7 @@ const handleSearch = () => {
     "search";
 }
 
-@media (min-width: $mobile-breakpoint) {
+@media (min-width: $tablet-breakpoint) {
   .filter-wrapper {
     grid-template-rows: 1fr 1fr;
     grid-template-columns: 1fr 1fr;
@@ -142,7 +142,7 @@ const handleSearch = () => {
   }
 }
 
-@media (min-width: $tablet-breakpoint) {
+@media (min-width: $desktop-breakpoint) {
   .filter-wrapper {
     grid-template-columns: 2fr 2fr 1fr;
     grid-template-rows: 1fr;
