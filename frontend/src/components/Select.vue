@@ -73,12 +73,7 @@ function clearValue() {
 
 const selectedIndex = ref(-1)
 
-function onFocus() {
-  console.log('!FOCUS', label)
-}
-
 function onBlur() {
-  console.log('!BLUR', label)
   selectedIndex.value = -1
 }
 
@@ -143,7 +138,6 @@ function selectOption(newValue: string | null) {
     <button
       :class="['select-button', { 'select-button-disabled': disabled }]"
       @click="changeIsOpen"
-      @focus="onFocus"
       @blur="onBlur"
       :disabled="disabled"
       ref="buttonRef"
@@ -164,6 +158,7 @@ function selectOption(newValue: string | null) {
         tabindex="0"
         :disabled="disabled"
         v-if="!isLoading"
+        :data-testid="`clear-selector-btn-${name}`"
       >
         <RemoveIcon />
       </button>

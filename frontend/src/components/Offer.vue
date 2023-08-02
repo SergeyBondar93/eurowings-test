@@ -25,14 +25,16 @@ const duration = '3:00'.padStart(5, '0')
   <div class="offer-wrapper" tabindex="0">
     <div class="route">
       <div class="route-place">
-        <span class="route-place-airport">{{ origin }}</span>
+        <span class="route-place-airport" :data-testid="`airport-departure`">{{ origin }}</span>
         <span class="route-place-time"
           >{{ timeFrom }}<span class="route-place-time-ampm">{{ ampmFrom }}</span></span
         >
       </div>
       <CommitIcon class="commit-icon"></CommitIcon>
       <div class="route-place">
-        <span class="route-place-airport">{{ destination }}</span>
+        <span class="route-place-airport" :data-testid="`airport-destination`">{{
+          destination
+        }}</span>
         <span class="route-place-time"
           >{{ timeTo }}<span class="route-place-time-ampm">{{ ampmTo }}</span></span
         >
@@ -55,7 +57,7 @@ const duration = '3:00'.padStart(5, '0')
     <div class="price">
       <div class="price-label">Flight from:</div>
 
-      <div class="price-text">€{{ price }}</div>
+      <div class="price-text" data-testid="offer-price">€{{ price }}</div>
     </div>
 
     <button class="open-button">
