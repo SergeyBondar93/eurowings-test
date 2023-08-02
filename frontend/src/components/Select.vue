@@ -102,6 +102,7 @@ function onKeyDown(event: any) {
         isOpen.value = !isOpen.value;
       }
       break;
+    case "Tab":
     case "Escape":
       isOpen.value = false;
       selectedIndex.value = -1;
@@ -178,6 +179,7 @@ function selectOption(newValue: string | null) {
       class="select-content-wrapper"
       :aria-expanded="isOpen"
       :aria-haspopup="true"
+      aria-modal="true"
     >
       <div class="input-wrapper">
         <Input
@@ -265,7 +267,7 @@ function selectOption(newValue: string | null) {
 }
 
 .select-button:focus {
-  outline: 2px solid $brand-color;
+  outline: $focus-outline;
 }
 
 .select-content-wrapper:active {
@@ -300,7 +302,7 @@ function selectOption(newValue: string | null) {
   border-left: 2px solid transparent;
 }
 .list-item.selected-item {
-  border: 2px solid $brand-color;
+  outline: $focus-outline;
 }
 
 .option-text-wrapper {
@@ -345,7 +347,7 @@ function selectOption(newValue: string | null) {
   border: none;
 }
 .clear-icon-wrapper:focus {
-  outline: 2px solid $brand-color;
+  outline: $focus-outline;
 }
 
 .icon {

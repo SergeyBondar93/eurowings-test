@@ -31,7 +31,7 @@
   transform: scale(1);
 }
 .button:focus {
-  outline: 2px solid $brand-color;
+  outline: $focus-outline;
   transform: scale(0.95);
 }
 </style>

@@ -22,7 +22,7 @@ const duration = "3:00".padStart(5, "0");
 </script>
 
 <template>
-  <div class="offer-wrapper">
+  <div class="offer-wrapper" tabindex="0">
     <div class="route">
       <div class="route-place">
         <span class="route-place-airport">{{ origin }}</span>
@@ -71,14 +71,13 @@ const duration = "3:00".padStart(5, "0");
   border-radius: $border-radius-main;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
   overflow: hidden;
-
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
   padding: 20px 15px;
   margin-bottom: 10px;
-
-  flex-wrap: wrap;
+  transition: 0.3s;
 }
 
 .commit-icon {
@@ -176,6 +175,13 @@ const duration = "3:00".padStart(5, "0");
   transform: scale(2.4);
   margin-right: 14px;
   display: none;
+}
+.open-button:focus,
+.offer-wrapper:focus {
+  outline: $focus-outline;
+}
+.offer-wrapper:focus {
+  transform: scale(0.99);
 }
 
 @media (min-width: $tablet-breakpoint) {
