@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Select from "./Select.vue";
+import Select, { SelectorExpose } from "./Select.vue";
 import Button from "./Button.vue";
 
 import PlaneTakeoffIcon from "@assets/flight_takeoff_24px.svg";
@@ -7,11 +7,14 @@ import PlaneLandIcon from "@assets/flight_land_24px.svg";
 import PlaneIcon from "@assets/flight_24px.svg";
 import { useDictionariesStore, Airport } from "../stores/dictionaries";
 import { useFlightsStore } from "../stores/flights";
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { storeToRefs } from "pinia";
 
 const dictionariesStore = useDictionariesStore();
 const flightsStore = useFlightsStore();
+
+const originSelectorRef = ref<SelectorExpose | null>(null);
+const destinationSelectorRef = ref<SelectorExpose | null>(null);
 
 const {
   airports,
@@ -52,6 +55,13 @@ const changeDestination = (newDestination: string) => {
 const handleSearch = () => {
   flightsStore.setSearchBtnClicked(true);
 
+  if (!destination.value) {
+    destinationSelectorRef.value?.buttonRef.focus();
+  }
+  if (!origin.value) {
+    originSelectorRef.value?.buttonRef.focus();
+  }
+
   if (destination.value && origin.value) {
     flightsStore.getFlights();
   }
@@ -70,6 +80,7 @@ const handleSearch = () => {
         @update:modelValue="changeOrigin"
         :disabled="isLoadingDictionaries || !!dictionariesError"
         :isLoading="isLoadingDictionaries"
+        ref="originSelectorRef"
       >
         <template v-slot:input-prefix>
           <PlaneTakeoffIcon />
@@ -96,6 +107,7 @@ const handleSearch = () => {
         @update:modelValue="changeDestination"
         :disabled="isLoadingDictionaries || !!dictionariesError"
         :isLoading="isLoadingDictionaries"
+        ref="destinationSelectorRef"
       >
         <template v-slot:input-prefix>
           <PlaneLandIcon />

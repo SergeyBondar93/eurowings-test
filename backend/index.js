@@ -9,7 +9,7 @@ const dataFolderPath = path.join(__dirname, "data");
 
 const delay = (mc) => new Promise((res) => setTimeout(res, mc));
 
-const DELAY_MC = 1000;
+const DELAY_MC = 100;
 
 app.get(
   "/promotions/priceoffers/ond/:origin/:destination",

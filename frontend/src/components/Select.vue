@@ -5,6 +5,8 @@ import Loader from "./Loader.vue";
 import RemoveIcon from "@assets/highlight_off_24px.svg";
 import { computed, onUpdated, ref } from "vue";
 
+export type SelectorExpose = { buttonRef: HTMLButtonElement };
+
 type Option = {
   label: string;
   value: string;
@@ -19,6 +21,7 @@ interface Props {
   selected: string | null;
   disabled?: boolean;
   isLoading?: boolean;
+  ref?: any;
 }
 
 const listWrapperRef = ref<HTMLDivElement | null>(null);
@@ -30,6 +33,11 @@ const options = computed(() => props.options);
 const selected = computed(() => props.selected);
 const disabled = computed(() => props.disabled);
 const isLoading = computed(() => props.isLoading);
+const buttonRef = ref<HTMLButtonElement | null>(null);
+
+defineExpose({
+  buttonRef,
+});
 
 const inputValue = ref("");
 
@@ -138,6 +146,7 @@ function selectOption(newValue: string | null) {
       @focus="onFocus"
       @blur="onBlur"
       :disabled="disabled"
+      ref="buttonRef"
     >
       <span class="prefix-icon-wrapper">
         <slot name="input-prefix"></slot>
