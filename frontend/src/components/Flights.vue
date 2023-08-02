@@ -10,7 +10,7 @@ const { flights, isLoading, error } = storeToRefs(flightsStore)
 </script>
 
 <template>
-  <div class="offers-wrapper">
+  <div class="offers-wrapper" data-testid="offers-block">
     <div class="loader-wrapper" v-if="isLoading">
       <Loader />
     </div>

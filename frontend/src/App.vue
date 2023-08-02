@@ -12,6 +12,8 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <Filters />
-  <Flights />
+  <div data-testid="app">
+    <Filters />
+    <Flights />
+  </div>
 </template>

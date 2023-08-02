@@ -35,7 +35,7 @@ const isLoading = computed(() => props.isLoading)
 const buttonRef = ref<HTMLButtonElement | null>(null)
 
 defineExpose({
-  buttonRef,
+  buttonRef
 })
 
 const inputValue = ref('')
@@ -51,7 +51,7 @@ const filteredOptions = computed(() => {
     return [
       normalizeString(option.label),
       normalizeString(option.subLabel),
-      normalizeString(option.value),
+      normalizeString(option.value)
     ].some((text) => {
       return text?.includes(inputValue.value.trim().toLocaleLowerCase())
     })
@@ -175,6 +175,7 @@ function selectOption(newValue: string | null) {
       :aria-expanded="isOpen"
       :aria-haspopup="true"
       aria-modal="true"
+      :data-testid="`selector-${name}-list`"
     >
       <div class="input-wrapper">
         <Input
@@ -200,6 +201,7 @@ function selectOption(newValue: string | null) {
             :key="item.value"
             @click="selectOption(item.value)"
             :aria-selected="index === selectedIndex"
+            :data-testid="`select-${name}-option-${item.value}`"
           >
             <div :class="['list-item', { 'selected-item': index === selectedIndex }]">
               <span class="prefix-wrapper">
