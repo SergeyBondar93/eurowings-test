@@ -1,7 +1,8 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 
 async function apiAirportsDictionary() {
-  return fetch("api/dictionary?type=airports").then((data) => data.json());
+  // it is better to use some client for queries like axios, this will make the code cleaner, but now I decided not to add it
+  return fetch("api/dictionary?type=airports");
 }
 
 export type Airport = {
@@ -30,11 +31,19 @@ export const useDictionariesStore = defineStore({
     async getAirports() {
       this.$patch({ isLoading: true });
       try {
-        const airports = await apiAirportsDictionary();
+        const response = await apiAirportsDictionary();
 
-        this.$patch({
-          airports,
-        });
+        if (!response.ok) {
+          const error = JSON.parse(await response.text());
+          this.$patch({
+            error,
+          });
+        } else {
+          const airports = await response.json();
+          this.$patch({
+            airports,
+          });
+        }
       } catch (error) {
         this.$patch({
           error: "Server Error",

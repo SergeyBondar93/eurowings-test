@@ -25,7 +25,6 @@ app.get(
 
       // simulated loading
       await delay(DELAY_MC);
-
       /**
        * we can disable filtering on the server side,
        * but it will be much better to do it here.

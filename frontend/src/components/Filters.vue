@@ -70,6 +70,9 @@ const handleSearch = () => {
 
 <template>
   <div class="filter-wrapper">
+    <span v-if="!!dictionariesError" class="dictionaries-error"
+      >something went wrong while loading dictionaries..</span
+    >
     <div class="origin-selector">
       <Select
         label="Departure airport"
@@ -129,6 +132,7 @@ const handleSearch = () => {
       <Button
         :disabled="isLoadingDictionaries || !!dictionariesError"
         @click="handleSearch"
+        data-testid="search-button"
         >Search for flight</Button
       >
     </div>
@@ -136,6 +140,9 @@ const handleSearch = () => {
 </template>
 
 <style scoped lang="scss">
+.dictionaries-error {
+  color: $error-message-color;
+}
 .origin-selector {
   grid-area: origin;
 }

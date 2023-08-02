@@ -148,6 +148,7 @@ function selectOption(newValue: string | null) {
       @blur="onBlur"
       :disabled="disabled"
       ref="buttonRef"
+      :data-testid="`selector-${name}`"
     >
       <span class="prefix-icon-wrapper">
         <slot name="input-prefix"></slot>

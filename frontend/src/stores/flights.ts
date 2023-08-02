@@ -1,9 +1,8 @@
 import { defineStore, acceptHMRUpdate } from "pinia";
 
 async function apiFlights(origin: string, destination: string) {
-  return fetch(`api/promotions/priceoffers/ond/${origin}/${destination}`).then(
-    (data) => data.json() as Promise<Flight[]>
-  );
+  // it is better to use some client for queries like axios, this will make the code cleaner, but now I decided not to add it
+  return fetch(`api/promotions/priceoffers/ond/${origin}/${destination}`);
 }
 
 type DateString = `${number}-${number}-${number}`;
@@ -43,16 +42,23 @@ export const useFlightsStore = defineStore({
     async getFlights() {
       this.$patch({ isLoading: true, flights: [] });
       try {
-        const flights = await apiFlights(
+        const response = await apiFlights(
           this.$state.origin!,
           this.$state.destination!
         );
 
-        const sortedByPrice = flights.sort((a, b) => a.price - b.price);
+        if (!response.ok) {
+          this.$patch({
+            error: "Server Error",
+          });
+        } else {
+          const flights = (await response.json()) as Flight[];
+          const sortedByPrice = flights.sort((a, b) => a.price - b.price);
 
-        this.$patch({
-          flights: sortedByPrice,
-        });
+          this.$patch({
+            flights: sortedByPrice,
+          });
+        }
       } catch (error) {
         this.$patch({
           error: "Server Error",

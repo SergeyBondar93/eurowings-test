@@ -6,7 +6,7 @@ import { storeToRefs } from "pinia";
 
 const flightsStore = useFlightsStore();
 
-const { flights, isLoading } = storeToRefs(flightsStore);
+const { flights, isLoading, error } = storeToRefs(flightsStore);
 </script>
 
 <template>
@@ -14,6 +14,9 @@ const { flights, isLoading } = storeToRefs(flightsStore);
     <div class="loader-wrapper" v-if="isLoading">
       <Loader />
     </div>
+    <span class="offers-error" v-if="error"
+      >Something went wrong while loading offers</span
+    >
 
     <Offer
       v-for="(flight, index) in flights"
@@ -22,11 +25,15 @@ const { flights, isLoading } = storeToRefs(flightsStore);
       :destination="flight.destination"
       :seatAvailability="flight.seatAvailability"
       :price="flight.price"
+      :data-testid="`flight-offer-${flight.origin}-${flight.destination}-${flight.price}`"
     ></Offer>
   </div>
 </template>
 
-<style>
+<style lang="scss">
+.offers-error {
+  color: $error-message-color;
+}
 .offers-wrapper {
   padding: 24px;
 }
